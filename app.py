@@ -4,13 +4,14 @@ from anthropic import Anthropic
 # 1. Page Configuration & Custom Theme/UI
 st.set_page_config(page_title="AI Chat Assistant", page_icon="🤖", layout="centered")
 
+# Yahan typo theek kar di gayi hai (unsafe_allow_html)
 st.markdown("""
     <style>
     /* Input bar aur messages ko clean alignment dena */
     .stChatInputContainer { padding-bottom: 20px; }
     .stChatMessage { border-radius: 15px; padding: 15px; margin-bottom: 12px; }
     </style>
-""", unsafe_allowed_html=True)
+""", unsafe_allow_html=True)
 
 st.title("🤖 My Live AI Assistant")
 st.caption("Powered by Claude Sonnet via Orbit Provider")
@@ -18,7 +19,7 @@ st.write("---")
 
 # 2. API Credentials Configuration
 BASE_URL = "https://api.orbit-provider.com/api/provider/agy"
-API_KEY = "sk-orbit-4b14b4b695719576c852d12de2c3b2ab" # Aap ki complete key
+API_KEY = "sk-orbit-4b14b4b695719576c852d12de2c3b2ab" 
 MODEL_NAME = "claude-sonnet-4-6"
 
 # Initialize Anthropic client with custom Orbit URL
