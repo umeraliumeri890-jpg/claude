@@ -16,13 +16,12 @@ st.title("🤖 My Live AI Assistant")
 st.caption("Powered by Claude Opus via Orbit Provider")
 st.write("---")
 
-# 2. Integration of Your Exact Config Environment (Format Corrected)
+# 2. Integration of Your Exact Config Environment
 BASE_URL = "https://api.orbit-provider.com/api/provider/agy"
-# Yahan 'sk-orbit' ke baad dash (-) add kar diya hai jo missing tha
 API_KEY = "sk-orbit-4b14b4b695719576c852d12de2c3b2ab"  
 MODEL_NAME = "claude-opus-4-7"                       
 
-# Initialize Anthropic client with corrected Orbit Credentials
+# Initialize Anthropic client
 client = Anthropic(
     base_url=BASE_URL,
     api_key=API_KEY
@@ -82,5 +81,5 @@ if user_input := st.chat_input("Ask me anything..."):
             full_response = "Sorry, system response generate nahi kar saka. Please backend keys check karein."
             message_placeholder.markdown(full_response)
 
-    # Save final response to browser state memory
-    st.session
+    # SECURE LINE: Save final response to browser state memory correctly
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
