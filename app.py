@@ -1,7 +1,7 @@
 import streamlit as st
 from anthropic import Anthropic
 
-# 1. Page Configuration & Premium Dark-ish Interface
+# 1. Page Configuration & Premium Dark Interface
 st.set_page_config(page_title="AI Chat Assistant", page_icon="🤖", layout="centered")
 
 st.markdown("""
@@ -16,12 +16,13 @@ st.title("🤖 My Live AI Assistant")
 st.caption("Powered by Claude Opus via Orbit Provider")
 st.write("---")
 
-# 2. Integration of Your Exact Config Environment
+# 2. Integration of Your Exact Config Environment (Format Corrected)
 BASE_URL = "https://api.orbit-provider.com/api/provider/agy"
-API_KEY = "sk-orbit4b14b4b695719576c852d12de2c3b2ab"  # Aap ki new updated key
-MODEL_NAME = "claude-opus-4-7"                       # Aap ka select kiya hua naya model
+# Yahan 'sk-orbit' ke baad dash (-) add kar diya hai jo missing tha
+API_KEY = "sk-orbit-4b14b4b695719576c852d12de2c3b2ab"  
+MODEL_NAME = "claude-opus-4-7"                       
 
-# Initialize Anthropic client with updated Orbit Credentials
+# Initialize Anthropic client with corrected Orbit Credentials
 client = Anthropic(
     base_url=BASE_URL,
     api_key=API_KEY
@@ -31,7 +32,7 @@ client = Anthropic(
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Sidebar Sidebar Actions
+# Sidebar Actions
 if st.sidebar.button("🗑️ Clear Chat History"):
     st.session_state.messages = []
     st.rerun()
@@ -82,4 +83,4 @@ if user_input := st.chat_input("Ask me anything..."):
             message_placeholder.markdown(full_response)
 
     # Save final response to browser state memory
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+    st.session
