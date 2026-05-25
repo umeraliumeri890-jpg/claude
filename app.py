@@ -1,65 +1,64 @@
 import streamlit as st
 from anthropic import Anthropic
 
-# 1. Page Configuration & Custom Theme/UI
+# 1. Page Configuration & Premium Dark-ish Interface
 st.set_page_config(page_title="AI Chat Assistant", page_icon="🤖", layout="centered")
 
-# Yahan typo theek kar di gayi hai (unsafe_allow_html)
 st.markdown("""
     <style>
-    /* Input bar aur messages ko clean alignment dena */
+    /* Chat layout styling */
     .stChatInputContainer { padding-bottom: 20px; }
     .stChatMessage { border-radius: 15px; padding: 15px; margin-bottom: 12px; }
     </style>
 """, unsafe_allow_html=True)
 
 st.title("🤖 My Live AI Assistant")
-st.caption("Powered by Claude Sonnet via Orbit Provider")
+st.caption("Powered by Claude Opus via Orbit Provider")
 st.write("---")
 
-# 2. API Credentials Configuration
+# 2. Integration of Your Exact Config Environment
 BASE_URL = "https://api.orbit-provider.com/api/provider/agy"
-API_KEY = "sk-orbit-4b14b4b695719576c852d12de2c3b2ab" 
-MODEL_NAME = "claude-sonnet-4-6"
+API_KEY = "sk-orbit4b14b4b695719576c852d12de2c3b2ab"  # Aap ki new updated key
+MODEL_NAME = "claude-opus-4-7"                       # Aap ka select kiya hua naya model
 
-# Initialize Anthropic client with custom Orbit URL
+# Initialize Anthropic client with updated Orbit Credentials
 client = Anthropic(
     base_url=BASE_URL,
     api_key=API_KEY
 )
 
-# 3. Chat History Setup (Session State)
+# 3. Session State Maintenance (Chat History)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Sidebar for Clear Chat Option
+# Sidebar Sidebar Actions
 if st.sidebar.button("🗑️ Clear Chat History"):
     st.session_state.messages = []
     st.rerun()
 
-# System Instruction for the AI behavior
+# System Prompt for Claude Opus Behavior
 SYSTEM_PROMPT = "You are a helpful, brilliant, and adaptive AI assistant. Respond with clear formatting."
 
-# Display existing chat history on screen reload
+# Display existing chat history logs on screen
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 4. User Chat Input & AI Streaming Logic
+# 4. User Chat Input & Claude Opus Real-Time Streaming
 if user_input := st.chat_input("Ask me anything..."):
     
-    # 1. Show User Message instantly
+    # Show user message instantly
     with st.chat_message("user"):
         st.markdown(user_input)
     st.session_state.messages.append({"role": "user", "content": user_input})
 
-    # 2. Generate and stream Assistant Response
+    # AI Response Window
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
         
         try:
-            # Calling the API stream context
+            # Calling the new model with dynamic streaming
             with client.messages.stream(
                 model=MODEL_NAME,
                 max_tokens=4096,
@@ -71,16 +70,16 @@ if user_input := st.chat_input("Ask me anything..."):
             ) as stream:
                 for text in stream.text_stream:
                     full_response += text
-                    # Typing cursor effect ke sath display update karna
+                    # Real-time update with cursor block
                     message_placeholder.markdown(full_response + "▌")
             
-            # Final output baseline update bina cursor ke
+            # Static clean text layout once done
             message_placeholder.markdown(full_response)
             
         except Exception as e:
             st.error(f"Error: {str(e)}")
-            full_response = "Sorry, system response generate nahi kar saka. Please backend check karein."
+            full_response = "Sorry, system response generate nahi kar saka. Please backend keys check karein."
             message_placeholder.markdown(full_response)
 
-    # Save Assistant response to history
+    # Save final response to browser state memory
     st.session_state.messages.append({"role": "assistant", "content": full_response})
