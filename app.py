@@ -12,8 +12,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🤖 My Live AI Assistant")
-st.caption("Powered by Claude Opus via Orbit Provider")
+st.title("🤖 Just For UTS TEAM")
+st.caption("Powered by Umer Ali")
 st.write("---")
 
 # 2. Integration of Your Exact Config Environment
