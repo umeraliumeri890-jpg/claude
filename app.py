@@ -18,7 +18,7 @@ st.write("---")
 
 # 2. Integration of Your Exact Config Environment
 BASE_URL = "https://api.orbit-provider.com/api/provider/agy"
-API_KEY = "sk-orbit-4b14b4b695719576c852d12de2c3b2ab"  
+API_KEY = "sk-orbit-6058e83ac469dd2e2d587fee096ab1f1"  
 MODEL_NAME = "claude-opus-4-7"                       
 
 # Initialize Anthropic client
